@@ -3,8 +3,8 @@
 The Country Currency API provides real-time access to country and currency data.  
 It allows developers to retrieve country details, currency information, and flag images efficiently.
 
- 🧠 Built with Node.js, Express, MySQL and Sequelize
- 
+🧠 Built with Node.js, Express, MySQL and Sequelize
+
 ![Node.js](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen)
 ![Express](https://img.shields.io/badge/express-4.18.2-blue)
 ![MySQL](https://img.shields.io/badge/mysql-8.0-orange)
@@ -17,10 +17,11 @@ It allows developers to retrieve country details, currency information, and flag
 The API fetches country data from **REST Countries**, matches each currency with live exchange rates from **Open Exchange Rates**, and calculates estimated GDP based on population and exchange rate.
 
 You can:
-- Filter by region or currency  
-- Sort by GDP  
-- Get any country’s details  
-- Generate a summary image of the top 5 richest countries  
+
+- Filter by region or currency
+- Sort by GDP
+- Get any country’s details
+- Generate a summary image of the top 5 richest countries
 
 ## Quick Start 🚀
 
@@ -91,6 +92,7 @@ POST /countries/refresh
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Countries data refreshed successfully",
@@ -100,6 +102,7 @@ POST /countries/refresh
 ```
 
 **Errors:**
+
 - `503` - External API unavailable
 
 ---
@@ -111,6 +114,7 @@ GET /countries?region=Africa&sort=gdp_desc
 ```
 
 **Available Filters:**
+
 - `region` - Filter by geographic region (Africa, Europe, Asia, Americas, Oceania)
 - `currency` - Filter by currency code (NGN, USD, EUR, GBP, etc.)
 - `sort` - Sort results:
@@ -120,6 +124,7 @@ GET /countries?region=Africa&sort=gdp_desc
   - `population_asc` - Least populous first
 
 **Response (200):**
+
 ```json
 [
   {
@@ -132,6 +137,7 @@ GET /countries?region=Africa&sort=gdp_desc
 ```
 
 **Errors:**
+
 - `400` - Invalid filter parameters
 
 ---
@@ -147,6 +153,7 @@ Case-insensitive. Works with `Nigeria`, `nigeria`, or `NIGERIA`.
 **Response (200):** Returns country object
 
 **Errors:**
+
 - `404` - Country not found
 
 ---
@@ -158,6 +165,7 @@ DELETE /countries/Nigeria
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Country deleted successfully"
@@ -165,6 +173,7 @@ DELETE /countries/Nigeria
 ```
 
 **Errors:**
+
 - `404` - Country not found
 
 ---
@@ -176,6 +185,7 @@ GET /status
 ```
 
 **Response (200):**
+
 ```json
 {
   "total_countries": 250,
@@ -196,19 +206,20 @@ GET /countries/image
 **Response (200):** PNG image file
 
 **Errors:**
+
 - `404` - Image not found (run refresh first)
 
 ---
 
 ## Tech Stack
 
-| What | Why |
-|------|-----|
-| Node.js + Express | Fast, simple, everyone uses it |
+| What              | Why                                               |
+| ----------------- | ------------------------------------------------- |
+| Node.js + Express | Fast, simple, everyone uses it                    |
 | MySQL + Sequelize | Need persistent storage, ORM makes queries easier |
-| Axios | Clean HTTP client for external APIs |
-| Canvas | Generates summary images programmatically |
-| express-validator | Request validation made simple |
+| Axios             | Clean HTTP client for external APIs               |
+| Canvas            | Generates summary images programmatically         |
+| express-validator | Request validation made simple                    |
 
 ## Project Structure
 
@@ -235,6 +246,7 @@ Clean separation of concerns. Controllers handle requests, services contain busi
 ## Running Locally
 
 **Prerequisites:**
+
 - Node.js v16 or higher
 - MySQL v8.0 or higher
 - npm
@@ -250,6 +262,7 @@ cp .env.example .env
 ```
 
 Edit `.env`:
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -266,12 +279,14 @@ API_TIMEOUT=10000
 ```
 
 **Create database:**
+
 ```sql
 DB_NAME=country_currency
 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 **Start server:**
+
 ```bash
 # Development mode (with hot reload)
 npm run dev
@@ -305,13 +320,16 @@ curl http://localhost:3000/countries/image --output summary.png
 ```
 
 Run test suite:
+
 ```bash
 npm test
 ```
 
 ## Deployment
 
-Will be deployed on Railway.
+Live API: https://country-currency-api-production-22c6.up.railway.app/
+
+Deployed on Railway.
 
 **Steps:**
 
@@ -319,6 +337,7 @@ Will be deployed on Railway.
 2. Create new project on Railway
 3. Add MySQL database service
 4. Configure environment variables:
+
 ```env
 NODE_ENV=production
 DB_HOST=${{MySQL.MYSQL_HOST}}
@@ -327,19 +346,19 @@ DB_NAME=${{MySQL.MYSQL_DATABASE}}
 DB_USER=${{MySQL.MYSQL_USER}}
 DB_PASSWORD=${{MySQL.MYSQL_PASSWORD}}
 ```
+
 5. Deploy from GitHub
 6. Generate public domain
 7. Trigger initial refresh: `curl -X POST https://your-app.railway.app/countries/refresh`
 
 Done.
 
-
-
 ## What I Learned
 
 This was Stage 2 of HNG Internship. Much more complex than Stage 1.
 
 **Technical:**
+
 - Working with external APIs and handling timeouts
 - Database design with Sequelize ORM
 - Bulk upsert operations (updating existing records vs inserting new ones)
@@ -348,6 +367,7 @@ This was Stage 2 of HNG Internship. Much more complex than Stage 1.
 - Environment-based configuration
 
 **The hard parts:**
+
 - Getting Canvas to work across different platforms (needs system dependencies)
 - Matching currency codes from countries API with exchange rates API
 - Handling countries with multiple currencies or no currency
@@ -372,6 +392,7 @@ For a learning project, these are acceptable trade-offs. A production system wou
 The API returns consistent JSON error responses:
 
 **400 Bad Request:**
+
 ```json
 {
   "error": "Validation failed",
@@ -382,6 +403,7 @@ The API returns consistent JSON error responses:
 ```
 
 **404 Not Found:**
+
 ```json
 {
   "error": "Country not found"
@@ -389,6 +411,7 @@ The API returns consistent JSON error responses:
 ```
 
 **503 Service Unavailable:**
+
 ```json
 {
   "error": "External data source unavailable",
@@ -408,7 +431,6 @@ Building backend systems. Learning through HNG Internship.
 
 - GitHub: [@yasmincreates](https://github.com/yasmincreates)
 - Linkedin: - [LinkedIn](https://www.linkedin.com/in/yasminabdulrahman/)
-
 
 ## License
 
