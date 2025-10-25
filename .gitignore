@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Coverage
+coverage/
+
+# Generated cache files
+cache/*.png
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.nyc_output/
