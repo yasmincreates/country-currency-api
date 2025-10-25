@@ -165,8 +165,9 @@ describe("Country Currency API Tests", () => {
 
       expect(response.status).toBe(200);
       expect(response.body[0].name).toBe("United States");
-      expect(response.body[0].estimated_gdp).toBeGreaterThan(
-        response.body[1].estimated_gdp
+      // Convert to number since Sequelize returns DECIMAL as string
+      expect(parseFloat(response.body[0].estimated_gdp)).toBeGreaterThan(
+        parseFloat(response.body[1].estimated_gdp)
       );
     });
 
@@ -331,6 +332,17 @@ describe("Country Currency API Tests", () => {
 
   describe("GET /countries/image", () => {
     it("should return 404 when image does not exist", async () => {
+      // Ensure cache directory is empty
+      const fs = require("fs").promises;
+      const path = require("path");
+      const imagePath = path.join(process.cwd(), "cache", "summary.png");
+
+      try {
+        await fs.unlink(imagePath);
+      } catch (error) {
+        // File doesn't exist, which is what we want
+      }
+
       const response = await request(app).get("/countries/image");
 
       expect(response.status).toBe(404);

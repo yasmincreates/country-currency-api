@@ -50,7 +50,12 @@ const refreshCountriesData = async () => {
 
       const estimatedGdp =
         currencyCode && exchangeRate
-          ? calculateEstimatedGdp(countryData.population, exchangeRate)
+          ? Number(
+              calculateEstimatedGdp(
+                countryData.population,
+                exchangeRate
+              ).toFixed(2)
+            )
           : null;
 
       countriesToUpsert.push({
