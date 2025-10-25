@@ -60,7 +60,7 @@ const refreshCountriesData = async () => {
         population: countryData.population,
         currency_code: currencyCode,
         exchange_rate: exchangeRate,
-        estimated_gdp: estimatedGdp,
+        estimated_gdp: estimatedGdp ? Number(estimatedGdp.toFixed(2)) : null,
         flag_url: countryData.flag || null,
         last_refreshed_at: timestamp,
       });
@@ -121,7 +121,7 @@ const getCountries = async (filters = {}) => {
   // Determine sorting
   let order = [["name", "ASC"]];
   if (filters.sort === "gdp_desc") {
-    order = [["estimated_gdp", "DESC NULLS LAST"]];
+    order = [["estimated_gdp", "DESC"]];
   } else if (filters.sort === "gdp_asc") {
     order = [["estimated_gdp", "ASC NULLS LAST"]];
   } else if (filters.sort === "population_desc") {

@@ -44,6 +44,10 @@ const Country = sequelize.define(
     estimated_gdp: {
       type: DataTypes.DECIMAL(20, 2),
       allowNull: true,
+      get() {
+        const value = this.getDataValue("estimated_gdp");
+        return value !== null ? Number(value) : null;
+      },
     },
     flag_url: {
       type: DataTypes.TEXT,
